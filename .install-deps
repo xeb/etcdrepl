@@ -1,9 +1,14 @@
 #!/bin/sh -e
 
+rm -rf third_party
+
 go get github.com/coreos/etcd
 go get github.com/coreos/etcdctl
 go get github.com/codegangsta/cli
-cp -r ../../coreos/etcdctl/third_party/* third_party/
-mkdir third_party/github.com/coreos/etcdctl
-mkdir third_party/github.com/coreos/etcdctl/command
+
+cp -r ../../coreos/etcdctl/third_party third_party/
+
+mkdir -p third_party/github.com/coreos/etcdctl/command
 cp -r ../../coreos/etcdctl/command/* third_party/github.com/coreos/etcdctl/command/
+
+find . -name "*.go" -type f -exec sed -i '' "s/github.com\/coreos\/etcdctl\/third_party/github.com\/xeb\/etcdrepl\/third_party/g" {} \;

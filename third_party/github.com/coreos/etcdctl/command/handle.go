@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/coreos/etcdctl/third_party/github.com/codegangsta/cli"
-	"github.com/coreos/etcdctl/third_party/github.com/coreos/go-etcd/etcd"
+	"github.com/xeb/etcdrepl/third_party/github.com/codegangsta/cli"
+	"github.com/xeb/etcdrepl/third_party/github.com/coreos/go-etcd/etcd"
 )
 
 type handlerFunc func(*cli.Context, *etcd.Client) (*etcd.Response, error)

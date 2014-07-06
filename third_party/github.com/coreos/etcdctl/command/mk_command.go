@@ -3,8 +3,8 @@ package command
 import (
 	"errors"
 
-	"github.com/coreos/etcdctl/third_party/github.com/codegangsta/cli"
-	"github.com/coreos/etcdctl/third_party/github.com/coreos/go-etcd/etcd"
+	"github.com/xeb/etcdrepl/third_party/github.com/codegangsta/cli"
+	"github.com/xeb/etcdrepl/third_party/github.com/coreos/go-etcd/etcd"
 )
 
 // NewMakeCommand returns the CLI command for "mk".

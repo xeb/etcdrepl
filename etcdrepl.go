@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/xeb/etcdrepl/repl"
+	"github.com/xeb/etcdrepl/third_party/github.com/codegangsta/cli"
 	"github.com/xeb/etcdrepl/third_party/github.com/coreos/etcdctl/command"
 )
 

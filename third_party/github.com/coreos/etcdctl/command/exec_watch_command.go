@@ -8,8 +8,8 @@ import (
 	"os/exec"
 	"os/signal"
 
-	"github.com/coreos/etcdctl/third_party/github.com/codegangsta/cli"
-	"github.com/coreos/etcdctl/third_party/github.com/coreos/go-etcd/etcd"
+	"github.com/xeb/etcdrepl/third_party/github.com/codegangsta/cli"
+	"github.com/xeb/etcdrepl/third_party/github.com/coreos/go-etcd/etcd"
 )
 
 // NewExecWatchCommand returns the CLI command for "exec-watch".

@@ -21,8 +21,8 @@ func main() {
 		command.NewSetDirCommand(),
 		command.NewUpdateCommand(),
 		command.NewUpdateDirCommand(),
-		command.NewWatchCommand(),
-		command.NewExecWatchCommand(),
+		// command.NewWatchCommand(),
+		// command.NewExecWatchCommand(),
 		repl.NewMakeQuitCommand(),
 	}
 	e := app.Run(os.Stdin)

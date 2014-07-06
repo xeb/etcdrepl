@@ -11,4 +11,9 @@ cp -r ../../coreos/etcdctl/third_party third_party/
 mkdir -p third_party/github.com/coreos/etcdctl/command
 cp -r ../../coreos/etcdctl/command/* third_party/github.com/coreos/etcdctl/command/
 
+# replace namespaces
 find . -name "*.go" -type f -exec sed -i '' "s/github.com\/coreos\/etcdctl\/third_party/github.com\/xeb\/etcdrepl\/third_party/g" {} \;
+
+# don't exit within handleError
+sed -i '' "s/os\.Exit(code)//g" third_party/github.com/coreos/etcdctl/command/error.go
+

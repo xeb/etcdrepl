@@ -3,5 +3,5 @@
 # Get GOPATH, etc from build
 . ./build
 
-go test -i ./command
-go test -v ./command
+go test -i ./github.com/xeb/etcdrepl/repl
+go test -v ./github.com/xeb/etcdrepl/repl

@@ -5,6 +5,7 @@ import (
 	"github.com/xeb/etcdrepl/repl"
 	"github.com/xeb/etcdrepl/third_party/github.com/codegangsta/cli"
 	"github.com/xeb/etcdrepl/third_party/github.com/coreos/etcdctl/command"
+	"os"
 )
 
 func main() {
@@ -24,7 +25,7 @@ func main() {
 		command.NewExecWatchCommand(),
 		repl.NewMakeQuitCommand(),
 	}
-	e := app.Run()
+	e := app.Run(os.Stdin)
 
 	if e != nil {
 		fmt.Println(e)

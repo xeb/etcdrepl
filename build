@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+if [ ! -h src/github.com/xeb/etcdrepl ]; then
+	mkdir -p src/github.com/xeb/
+	ln -s ../../.. src/github.com/xeb/etcdrepl
+fi
+
+export GOBIN=${PWD}/bin
+export GOPATH=${PWD}
+
+go install github.com/xeb/etcdrepl

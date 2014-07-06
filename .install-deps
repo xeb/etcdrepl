@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+go get github.com/coreos/etcd
+go get github.com/coreos/etcdctl
+go get github.com/codegangsta/cli
+cp -r ../../coreos/etcdctl/third_party/* third_party/
+mkdir third_party/github.com/coreos/etcdctl
+mkdir third_party/github.com/coreos/etcdctl/command
+cp -r ../../coreos/etcdctl/command/* third_party/github.com/coreos/etcdctl/command/

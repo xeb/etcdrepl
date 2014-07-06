@@ -1,20 +1,31 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
+	"github.com/xeb/etcdrepl/repl"
+	"github.com/xeb/etcdrepl/third_party/github.com/coreos/etcdctl/command"
 )
 
 func main() {
+	app := repl.NewApp()
+	app.Commands = []cli.Command{
+		command.NewMakeCommand(),
+		command.NewMakeDirCommand(),
+		command.NewRemoveCommand(),
+		command.NewRemoveDirCommand(),
+		command.NewGetCommand(),
+		command.NewLsCommand(),
+		command.NewSetCommand(),
+		command.NewSetDirCommand(),
+		command.NewUpdateCommand(),
+		command.NewUpdateDirCommand(),
+		command.NewWatchCommand(),
+		command.NewExecWatchCommand(),
+		repl.NewMakeQuitCommand(),
+	}
+	e := app.Run()
 
-	for true {
-		fmt.Print("etcdrepl> ")
-		reader := bufio.NewReader(os.Stdin)
-		text, _ := reader.ReadString('\n')
-		if text == "quit\n" {
-			return
-		}
-		fmt.Println(text)
+	if e != nil {
+		fmt.Println(e)
 	}
 }

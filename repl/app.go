@@ -10,11 +10,10 @@ import (
 )
 
 type App struct {
-	Commands []cli.Command
-	child    *cli.App
+	child *cli.App
 }
 
-func NewApp() *App {
+func NewApp(cmds []cli.Command) *App {
 
 	ca := cli.NewApp()
 	ca.Name = "etcdrepl"
@@ -25,6 +24,7 @@ func NewApp() *App {
 		cli.StringFlag{"output, o", "simple", "output response in the given format (`simple` or `json`)"},
 		cli.StringSliceFlag{"peers, C", &cli.StringSlice{}, "a comma-delimited list of machine addresses in the cluster (default: {\"127.0.0.1:4001\"})"},
 	}
+	ca.Commands = cmds
 
 	return &App{
 		child: ca,
@@ -33,12 +33,13 @@ func NewApp() *App {
 
 func (a *App) Run(r io.Reader) error {
 
-	if a == nil || a.Commands == nil || len(a.Commands) == 0 {
+	if a == nil || a.child == nil || a.child.Commands == nil || len(a.child.Commands) == 0 {
 		return errors.New("No commands found")
 	}
 
-	for true {
+	for {
 		fmt.Print("etcdrepl> ")
+
 		reader := Reader{bufio.NewReader(r)}
 		text, e := reader.ReadStringAnyDelim([]byte{'\n', '.'})
 
@@ -47,8 +48,6 @@ func (a *App) Run(r io.Reader) error {
 		}
 
 		args := append([]string{"./etcdrepl"}, strings.Split(strings.Replace(text, "\n", "", 1000), " ")...)
-
-		a.child.Commands = a.Commands
 
 		e = a.child.Run(args)
 		if e != nil {

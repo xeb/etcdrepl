@@ -9,8 +9,7 @@ import (
 )
 
 func main() {
-	app := repl.NewApp()
-	app.Commands = []cli.Command{
+	cmds := []cli.Command{
 		command.NewMakeCommand(),
 		command.NewMakeDirCommand(),
 		command.NewRemoveCommand(),
@@ -28,6 +27,7 @@ func main() {
 
 		repl.NewMakeQuitCommand(),
 	}
+	app := repl.NewApp(cmds)
 	e := app.Run(os.Stdin)
 
 	if e != nil {

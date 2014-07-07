@@ -2,8 +2,6 @@ package repl
 
 import (
 	"github.com/xeb/etcdrepl/third_party/github.com/codegangsta/cli"
-	"os"
-	"repl"
 	"testing"
 )
 
@@ -16,14 +14,14 @@ func (f *FakeStdin) Read(p []byte) (n int, err error) {
 }
 
 func TestQuit(t *testing.T) {
-	app := repl.NewApp()
-	app.Commands = []cli.Command{
-		repl.NewMakeQuitCommand(),
+	cmds := []cli.Command{
+		NewMakeQuitCommand(),
 	}
+	app := NewApp(cmds)
 
 	fr := &FakeStdin{
-		Commands: ["test","quit"],
+		Commands: []string{"help", "quit"},
 	}
 
-	e := app.Run(fr)
+	_ = app.Run(fr)
 }

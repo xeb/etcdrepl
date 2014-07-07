@@ -10,20 +10,9 @@ import (
 // The text template for the Default help topic.
 // cli.go uses text/template to render templates. You can
 // render custom help text by setting this variable.
-var AppHelpTemplate = `NAME:
-   {{.Name}} - {{.Usage}}
-
-USAGE:
-   {{.Name}} [global options] command [command options] [arguments...]
-
-VERSION:
-   {{.Version}}
-
+var AppHelpTemplate = `
 COMMANDS:
    {{range .Commands}}{{.Name}}{{with .ShortName}}, {{.}}{{end}}{{ "\t" }}{{.Usage}}
-   {{end}}
-GLOBAL OPTIONS:
-   {{range .Flags}}{{.}}
    {{end}}
 `
 

@@ -21,8 +21,11 @@ func main() {
 		command.NewSetDirCommand(),
 		command.NewUpdateCommand(),
 		command.NewUpdateDirCommand(),
+
+		// NOT YET SUPPORTED
 		// command.NewWatchCommand(),
 		// command.NewExecWatchCommand(),
+
 		repl.NewMakeQuitCommand(),
 	}
 	e := app.Run(os.Stdin)

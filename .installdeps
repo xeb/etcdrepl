@@ -17,3 +17,4 @@ find . -name "*.go" -type f -exec sed -i '' "s/github.com\/coreos\/etcdctl\/thir
 # don't exit within handleError
 sed -i '' "s/os\.Exit(code)//g" third_party/github.com/coreos/etcdctl/command/error.go
 
+# NOTE: I modified third_party/github.com/codegangsta/cli/help.go 's AppHelpTemplate variable

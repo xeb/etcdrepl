@@ -10,7 +10,8 @@ import (
 )
 
 type App struct {
-	child *cli.App
+	child    *cli.App
+	flagArgs string
 }
 
 func NewApp(cmds []cli.Command) *App {
@@ -46,7 +47,12 @@ func (a *App) Run(r io.Reader) error {
 			return e
 		}
 
-		args := append([]string{"./etcdrepl"}, strings.Split(strings.Replace(text, "\n", "", 1000), " ")...)
+		if text[:6] == "output" {
+			a.flagArgs = "--" + text
+			continue
+		}
+
+		args := append([]string{"./etcdrepl"}, strings.Split(strings.Replace(a.flagArgs+" "+text, "\n", "", 100), " ")...)
 
 		e = a.child.Run(args)
 		if e != nil {

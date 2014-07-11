@@ -25,6 +25,7 @@ func main() {
 		// command.NewWatchCommand(),
 		// command.NewExecWatchCommand(),
 
+		repl.NewMakeOutputCommand(),
 		repl.NewMakeQuitCommand(),
 	}
 	app := repl.NewApp(cmds)

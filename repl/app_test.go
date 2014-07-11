@@ -1,66 +1,38 @@
 package repl
 
 import (
-	// "bufio"
-	"errors"
-	"fmt"
+	"bytes"
+	// "fmt"
 	"github.com/xeb/etcdrepl/third_party/github.com/codegangsta/cli"
+	"github.com/xeb/etcdrepl/third_party/github.com/coreos/etcdctl/command"
 	"testing"
 )
 
-var EOF = errors.New("EOF")
-
-type FakeStdin struct {
-	Commands  []string
-	lastIndex int
-}
-
-func NewFakeStdin(cmds []string) (f *FakeStdin) {
-	return &FakeStdin{
-		Commands:  cmds,
-		lastIndex: 0,
-	}
-}
-
-func (f *FakeStdin) Read(p []byte) (n int, err error) {
-
-	if len(f.Commands) >= f.lastIndex {
-		return 0, EOF
-	}
-
-	cmd := f.Commands[f.lastIndex]
-	fmt.Printf("Command is %s ", cmd)
-	f.lastIndex = f.lastIndex + 1
-
-	if len(p) > len(cmd) {
-		p = []byte(cmd)
-		return len(cmd), nil
-	} else {
-		p = []byte(cmd[0:len(p)])
-		return len(p), nil
-	}
-}
-
-func TestQuit(t *testing.T) {
+func TestHelp(t *testing.T) {
 	cmds := []cli.Command{
 		NewMakeQuitCommand(),
 	}
 	app := NewApp(cmds)
 
-	fr := &FakeStdin{
-		Commands: []string{"help\n", "quit\n"},
-	}
+	_ = app.Run(bytes.NewReader([]byte("help\n")))
 
-	_ = app.Run(fr)
+	// if e != nil {
+	// 	fmt.Printf("Error %s", e)
+	// 	t.FailNow()
+	// }
 }
 
-// func TestReader(t *testing.T) {
+func TestGet(t *testing.T) {
+	cmds := []cli.Command{
+		command.NewGetCommand(),
+		NewMakeQuitCommand(),
+	}
+	app := NewApp(cmds)
 
-// 	fr := NewFakeStdin([]string{"help.me\n", "quit.oh\n"})
+	_ = app.Run(bytes.NewReader([]byte("get test\n")))
 
-// 	reader := Reader{bufio.NewReader(fr)}
-// 	fmt.Printf("----WOOT\n\n r is %s\nreader is %s", fr, reader)
-// 	text, e := reader.ReadStringAnyDelim([]byte{'.'})
-
-// 	fmt.Printf("Text is %s (error is %s)", text, e)
-// }
+	// if e != nil {
+	// 	fmt.Printf("Error %s", e)
+	// 	t.FailNow()
+	// }
+}

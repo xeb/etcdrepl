@@ -47,12 +47,16 @@ func (a *App) Run(r io.Reader) error {
 			return e
 		}
 
-		if text[:6] == "output" {
+		if len(text) > 5 && text[:6] == "output" {
 			a.flagArgs = "--" + text
 			continue
 		}
 
-		args := append([]string{"./etcdrepl"}, strings.Split(strings.Replace(a.flagArgs+" "+text, "\n", "", 100), " ")...)
+		if len(a.flagArgs) > 0 {
+			text = a.flagArgs + " " + text
+		}
+
+		args := append([]string{"./etcdrepl"}, strings.Split(strings.Replace(text, "\n", "", 100), " ")...)
 
 		e = a.child.Run(args)
 		if e != nil {

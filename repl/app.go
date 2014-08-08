@@ -40,8 +40,8 @@ func (a *App) Run(r io.Reader) error {
 
 	for {
 		fmt.Print("etcdrepl> ")
-		reader := Reader{bufio.NewReader(r)}
-		text, e := reader.ReadStringAnyDelim([]byte{'\n', '.'})
+		reader := bufio.NewReader(r)
+		text, e := reader.ReadString('\n')
 
 		if e != nil {
 			return e
